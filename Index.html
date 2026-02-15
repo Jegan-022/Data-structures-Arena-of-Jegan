@@ -1,0 +1,1683 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Structures Academy</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .font-mono {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-ocean {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+        }
+        
+        .gradient-sunset {
+            background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .structure-icon {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .selected {
+            border-color: #4f46e5 !important;
+            background-color: #eef2ff !important;
+        }
+        
+        .achievement-earned {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .achievement-locked {
+            opacity: 0.4;
+            transform: scale(0.9);
+        }
+        
+        /* Professional Theme Styles */
+        .theme-default {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-color: #4f46e5;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+        }
+        
+        .theme-corporate {
+            --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            --accent-color: #1d4ed8;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --error-color: #dc2626;
+        }
+        
+        .theme-modern {
+            --primary-gradient: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            --accent-color: #0ea5e9;
+            --success-color: #22c55e;
+            --warning-color: #eab308;
+            --error-color: #f87171;
+        }
+        
+        .theme-nature {
+            --primary-gradient: linear-gradient(135deg, #065f46 0%, #047857 100%);
+            --accent-color: #059669;
+            --success-color: #16a34a;
+            --warning-color: #ca8a04;
+            --error-color: #dc2626;
+        }
+        
+        .professional-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .professional-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .professional-card:hover::before {
+            left: 100%;
+        }
+        
+        .elegant-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+        }
+        
+        .concept-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+        
+        .concept-card-time {
+            background-image: url('https://images.unsplash.com/photo-1501139083538-0139583c060f?w=300&h=200&fit=crop&crop=center');
+        }
+        
+        .concept-card-space {
+            background-image: url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=300&h=200&fit=crop&crop=center');
+        }
+        
+        .concept-card-algorithms {
+            background-image: url('https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=300&h=200&fit=crop&crop=center');
+        }
+        
+        .concept-card-optimization {
+            background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop&crop=center');
+        }
+        
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(103, 126, 234, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .concept-card:hover::before {
+            transform: scale(1);
+        }
+        
+        .structure-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+        
+        .structure-card-arrays {
+            background-image: url('https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=400&h=300&fit=crop&crop=center');
+        }
+        
+        .structure-card-linked-lists {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLq-Zb82PyGhPaV0zWDNDIdVYn-NDrvv9-dw&s');
+        }
+        
+        .structure-card-stacks {
+            background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop&crop=center');
+        }
+        
+        .structure-card-queues {
+            background-image: url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=300&fit=crop&crop=center');
+        }
+        
+        .structure-card-trees {
+            background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&crop=center');
+        }
+        
+        .structure-card-graphs {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlG5zk0f694B--1j5XH-XAGnP9bqwTocg2Lg&s');
+        }
+        
+        .structure-card-hash-tables {
+            background-image: url('https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop&crop=center');
+        }
+        
+        .structure-card-heaps {
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center');
+        }
+        
+        .structure-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(103, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .structure-card:hover::before {
+            opacity: 1;
+        }
+        
+        .structure-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1), 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { background-position: 200% 0; }
+            50% { background-position: -200% 0; }
+        }
+        
+        .floating-icon {
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .glow-effect {
+            position: relative;
+        }
+        
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 400% 400%;
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: gradient-shift 4s ease infinite;
+        }
+        
+        .glow-effect:hover::after {
+            opacity: 0.7;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .elegant-shadow {
+            box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.04),
+                0 4px 16px rgba(0, 0, 0, 0.06),
+                0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+        
+        .elegant-shadow:hover {
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.06),
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                0 16px 64px rgba(0, 0, 0, 0.12);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating-action {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 40;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .theme-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .theme-preview {
+            width: 100%;
+            height: 60px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-preview.selected {
+            border-color: #4f46e5;
+            transform: scale(1.05);
+        }
+        
+        .theme-preview::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--preview-gradient);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="min-h-full relative" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/617/209/140/atoms-electrons-neutrons-plexus-wallpaper-preview.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+  <div class="absolute inset-0 bg-gray-50 bg-opacity-30"></div>
+  <div class="relative z-10"><!-- Settings Modal -->
+   <div id="settings-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-8 max-h-full overflow-y-auto">
+     <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Settings &amp; Achievements</h2><button id="close-settings" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">×</button>
+     </div>
+     <div class="space-y-8"><!-- Achievements Section -->
+      <div>
+       <h3 class="text-lg font-semibold text-gray-800 mb-4">🏆 Achievements</h3>
+       <div class="grid grid-cols-2 gap-4" id="achievements-grid"><!-- Achievements will be populated by JavaScript -->
+       </div>
+      </div><!-- Stats Section -->
+      <div>
+       <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 Your Stats</h3>
+       <div class="grid grid-cols-2 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg">
+         <div class="text-2xl font-bold text-indigo-600" id="total-study-time-display">
+          0
+         </div>
+         <div class="text-sm text-gray-600">
+          Minutes Studied
+         </div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg">
+         <div class="text-2xl font-bold text-green-600" id="current-streak-display">
+          0
+         </div>
+         <div class="text-sm text-gray-600">
+          Day Streak
+         </div>
+        </div>
+       </div>
+      </div><!-- Preferences Section -->
+      <div>
+       <h3 class="text-lg font-semibold text-gray-800 mb-4">⚙️ Preferences</h3>
+       <div class="space-y-4">
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Display Name</label> <input type="text" id="settings-name" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Difficulty Level</label> <select id="settings-difficulty" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"> <option value="beginner">Beginner</option> <option value="intermediate">Intermediate</option> <option value="advanced">Advanced</option> </select>
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Daily Goal (minutes)</label> <select id="settings-daily-goal" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"> <option value="15">15 minutes</option> <option value="30">30 minutes</option> <option value="45">45 minutes</option> <option value="60">1 hour</option> </select>
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-3">Theme</label>
+         <div class="theme-selector">
+          <div class="theme-preview theme-option" data-theme="default" style="--preview-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+           <div class="absolute inset-2 bg-white bg-opacity-20 rounded flex items-center justify-center text-white text-xs font-medium">
+            Default
+           </div>
+          </div>
+          <div class="theme-preview theme-option" data-theme="corporate" style="--preview-gradient: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);">
+           <div class="absolute inset-2 bg-white bg-opacity-20 rounded flex items-center justify-center text-white text-xs font-medium">
+            Corporate
+           </div>
+          </div>
+          <div class="theme-preview theme-option" data-theme="modern" style="--preview-gradient: linear-gradient(135deg, #0f172a 0%, #334155 100%);">
+           <div class="absolute inset-2 bg-white bg-opacity-20 rounded flex items-center justify-center text-white text-xs font-medium">
+            Modern
+           </div>
+          </div>
+          <div class="theme-preview theme-option" data-theme="nature" style="--preview-gradient: linear-gradient(135deg, #065f46 0%, #047857 100%);">
+           <div class="absolute inset-2 bg-white bg-opacity-20 rounded flex items-center justify-center text-white text-xs font-medium">
+            Nature
+           </div>
+          </div>
+         </div>
+        </div>
+       </div><button id="save-settings" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold mt-6 transition-colors"> Save Changes </button>
+      </div>
+     </div>
+    </div>
+   </div>
+   <header id="main-header" class="gradient-bg text-white py-8 px-6 relative overflow-hidden" style="background-image: url('https://t4.ftcdn.net/jpg/08/96/56/53/360_F_896565357_fmPjmJPX8vKdZ7FGodwE3F8pxkFEfuCX.jpg'); background-size: cover; background-position: center; background-blend-mode: overlay;">
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <div class="max-w-6xl mx-auto relative z-10">
+     <div class="flex justify-between items-center">
+      <div>
+       <h1 id="app-title" class="text-4xl font-bold mb-2 drop-shadow-lg">Data Structures Academy</h1>
+       <p id="welcome-message" class="text-xl opacity-90 drop-shadow">Master the fundamentals of computer science</p>
+      </div>
+      <div class="flex items-center space-x-4">
+       <div id="user-info" class="text-right">
+        <div class="flex items-center space-x-3">
+         <div>
+          <p class="font-semibold drop-shadow" id="user-greeting">Welcome back, Alex!</p>
+          <p class="text-sm opacity-75 drop-shadow" id="streak-display">🔥 5 day streak</p>
+         </div>
+         <div class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-2xl" id="user-avatar">
+          🚀
+         </div>
+        </div>
+       </div><button id="settings-btn" class="glass-effect hover:bg-white hover:bg-opacity-20 px-4 py-2 rounded-lg transition-all duration-300 font-medium"> ⚙️ Settings </button>
+      </div>
+     </div>
+    </div>
+   </header>
+   <main class="max-w-6xl mx-auto px-6 py-8 relative" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/617/209/140/atoms-electrons-neutrons-plexus-wallpaper-preview.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <div class="absolute inset-0 bg-white bg-opacity-40 backdrop-blur-sm"></div>
+    <div class="relative z-10"><!-- Progress Overview -->
+     <section class="mb-12">
+      <h2 id="progress-label" class="text-2xl font-bold text-gray-800 mb-6">Your Learning Journey</h2><!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+       <div class="stats-card rounded-2xl p-6 card-hover glow-effect">
+        <div class="flex items-center justify-between">
+         <div>
+          <p class="text-sm text-gray-600 font-medium">Overall Progress</p>
+          <p id="overall-percentage" class="text-3xl font-bold text-indigo-600 mt-1">38%</p>
+         </div>
+         <div class="text-4xl floating-icon">
+          📊
+         </div>
+        </div>
+        <div class="mt-4 w-full bg-gray-200 rounded-full h-2 shadow-inner">
+         <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-2 rounded-full transition-all duration-700 shadow-sm" style="width: 38%"></div>
+        </div>
+       </div>
+       <div class="stats-card rounded-2xl p-6 card-hover glow-effect">
+        <div class="flex items-center justify-between">
+         <div>
+          <p class="text-sm text-gray-600 font-medium">Learning Streak</p>
+          <p id="streak-counter" class="text-3xl font-bold text-orange-600 mt-1">5 days</p>
+         </div>
+         <div class="text-4xl floating-icon">
+          🔥
+         </div>
+        </div>
+        <div class="mt-4 w-full bg-gray-200 rounded-full h-2 shadow-inner">
+         <div class="bg-gradient-to-r from-orange-500 to-orange-600 h-2 rounded-full transition-all duration-700 shadow-sm" style="width: 62%"></div>
+        </div>
+       </div>
+       <div class="stats-card rounded-2xl p-6 card-hover glow-effect">
+        <div class="flex items-center justify-between">
+         <div>
+          <p class="text-sm text-gray-600 font-medium">Today's Goal</p>
+          <p id="daily-progress" class="text-3xl font-bold text-green-600 mt-1">25/30 min</p>
+         </div>
+         <div class="text-4xl floating-icon">
+          🎯
+         </div>
+        </div>
+        <div class="mt-4 w-full bg-gray-200 rounded-full h-2 shadow-inner">
+         <div class="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full transition-all duration-700 shadow-sm" style="width: 83%"></div>
+        </div>
+       </div>
+       <div class="stats-card rounded-2xl p-6 card-hover glow-effect">
+        <div class="flex items-center justify-between">
+         <div>
+          <p class="text-sm text-gray-600 font-medium">Achievements</p>
+          <p id="achievement-count" class="text-3xl font-bold text-purple-600 mt-1">4</p>
+         </div>
+         <div class="text-4xl floating-icon">
+          🏆
+         </div>
+        </div>
+        <div class="mt-4 w-full bg-gray-200 rounded-full h-2 shadow-inner">
+         <div class="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full transition-all duration-700 shadow-sm" style="width: 50%"></div>
+        </div>
+       </div>
+      </div><!-- Main Progress Bar -->
+      <div class="progress-card rounded-2xl p-8">
+       <div class="flex items-center justify-between mb-6">
+        <div><span class="text-2xl font-bold text-gray-800">Course Completion</span>
+         <p class="text-sm text-gray-600 mt-2 flex items-center"><span class="mr-2">🚀</span> Keep up the great work!</p>
+        </div>
+        <div class="text-right"><span class="text-3xl font-bold text-indigo-600">38%</span>
+         <p class="text-sm text-gray-600 mt-1"><span id="completed-count">3</span> of <span id="total-count">8</span> topics</p>
+        </div>
+       </div>
+       <div class="w-full bg-gray-200 rounded-full h-5 mb-4 shadow-inner overflow-hidden">
+        <div id="overall-progress" class="progress-bar bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-5 rounded-full shadow-lg relative" style="width: 38%">
+         <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
+        </div>
+       </div>
+       <div class="flex justify-between text-sm text-gray-500 font-medium"><span class="flex items-center"> <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span> Beginner </span> <span class="flex items-center"> <span class="w-2 h-2 bg-yellow-400 rounded-full mr-2"></span> Intermediate </span> <span class="flex items-center"> <span class="w-2 h-2 bg-red-400 rounded-full mr-2"></span> Advanced </span>
+       </div>
+      </div>
+     </section><!-- Concept Blocks Section -->
+     <section class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center"><span class="mr-3">🧠</span> Core Concepts</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+       <div class="concept-card concept-card-time rounded-2xl p-6 text-center card-hover elegant-shadow">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          ⚡
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Time Complexity</h3>
+         <p class="text-sm text-gray-100 drop-shadow">Big O Notation</p>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full shadow-lg"></div>
+        </div>
+       </div>
+       <div class="concept-card concept-card-space rounded-2xl p-6 text-center card-hover elegant-shadow">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          💾
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Space Complexity</h3>
+         <p class="text-sm text-gray-100 drop-shadow">Memory Usage</p>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full shadow-lg"></div>
+        </div>
+       </div>
+       <div class="concept-card concept-card-algorithms rounded-2xl p-6 text-center card-hover elegant-shadow">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          🔄
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Algorithms</h3>
+         <p class="text-sm text-gray-100 drop-shadow">Problem Solving</p>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full shadow-lg"></div>
+        </div>
+       </div>
+       <div class="concept-card concept-card-optimization rounded-2xl p-6 text-center card-hover elegant-shadow">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          🎯
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Optimization</h3>
+         <p class="text-sm text-gray-100 drop-shadow">Best Practices</p>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full shadow-lg"></div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Data Structures Showcase Cards -->
+     <section class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center"><span class="mr-3">🏗️</span> Data Structures Overview</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"><!-- Arrays Card -->
+       <div class="structure-card structure-card-arrays rounded-2xl p-6 text-center card-hover elegant-shadow cursor-pointer glow-effect" onclick="openLearningModal(dataStructures[0])">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          📊
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Arrays</h3>
+         <p class="text-sm text-gray-100 drop-shadow mb-4">Linear collection of elements</p>
+         <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-3 text-xs text-white">
+          <div class="font-mono">
+           arr[0] = 10
+          </div>
+          <div class="font-mono">
+           arr[1] = 20
+          </div>
+          <div class="font-mono">
+           arr[2] = 30
+          </div>
+         </div>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-red-400 to-red-600 rounded-full shadow-lg"></div>
+        </div>
+       </div><!-- Linked Lists Card -->
+       <div class="structure-card structure-card-linked-lists rounded-2xl p-6 text-center card-hover elegant-shadow cursor-pointer glow-effect" onclick="openLearningModal(dataStructures[1])">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          🔗
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Linked Lists</h3>
+         <p class="text-sm text-gray-100 drop-shadow mb-4">Dynamic linear structure</p>
+         <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-3 text-xs text-white">
+          <div class="font-mono">
+           A → B → C → NULL
+          </div>
+          <div class="font-mono">
+           Dynamic size
+          </div>
+          <div class="font-mono">
+           O(n) access
+          </div>
+         </div>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full shadow-lg"></div>
+        </div>
+       </div><!-- Stacks Card -->
+       <div class="structure-card structure-card-stacks rounded-2xl p-6 text-center card-hover elegant-shadow cursor-pointer glow-effect" onclick="openLearningModal(dataStructures[2])">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          📚
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Stacks</h3>
+         <p class="text-sm text-gray-100 drop-shadow mb-4">Last In, First Out (LIFO)</p>
+         <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-3 text-xs text-white">
+          <div class="font-mono">
+           push(5) → [5]
+          </div>
+          <div class="font-mono">
+           push(3) → [5,3]
+          </div>
+          <div class="font-mono">
+           pop() → [5]
+          </div>
+         </div>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-violet-400 to-violet-600 rounded-full shadow-lg"></div>
+        </div>
+       </div><!-- Queues Card -->
+       <div class="structure-card structure-card-queues rounded-2xl p-6 text-center card-hover elegant-shadow cursor-pointer glow-effect" onclick="openLearningModal(dataStructures[3])">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          🚶‍♂️
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Queues</h3>
+         <p class="text-sm text-gray-100 drop-shadow mb-4">First In, First Out (FIFO)</p>
+         <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-3 text-xs text-white">
+          <div class="font-mono">
+           enqueue(A) → [A]
+          </div>
+          <div class="font-mono">
+           enqueue(B) → [A,B]
+          </div>
+          <div class="font-mono">
+           dequeue() → [B]
+          </div>
+         </div>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-full shadow-lg"></div>
+        </div>
+       </div><!-- Trees Card -->
+       <div class="structure-card structure-card-trees rounded-2xl p-6 text-center card-hover elegant-shadow cursor-pointer glow-effect" onclick="openLearningModal(dataStructures[4])">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          🌳
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Trees</h3>
+         <p class="text-sm text-gray-100 drop-shadow mb-4">Hierarchical structure</p>
+         <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-3 text-xs text-white">
+          <div class="font-mono text-center">
+           Root
+          </div>
+          <div class="font-mono text-center">
+           / \
+          </div>
+          <div class="font-mono">
+           Left Right
+          </div>
+         </div>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full shadow-lg"></div>
+        </div>
+       </div><!-- Graphs Card -->
+       <div class="structure-card structure-card-graphs rounded-2xl p-6 text-center card-hover elegant-shadow cursor-pointer glow-effect" onclick="openLearningModal(dataStructures[5])">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          🕸️
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Graphs</h3>
+         <p class="text-sm text-gray-100 drop-shadow mb-4">Network of nodes</p>
+         <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-3 text-xs text-white">
+          <div class="font-mono">
+           A ↔ B
+          </div>
+          <div class="font-mono">
+           ↕ ↕
+          </div>
+          <div class="font-mono">
+           C ↔ D
+          </div>
+         </div>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-pink-400 to-pink-600 rounded-full shadow-lg"></div>
+        </div>
+       </div><!-- Hash Tables Card -->
+       <div class="structure-card structure-card-hash-tables rounded-2xl p-6 text-center card-hover elegant-shadow cursor-pointer glow-effect" onclick="openLearningModal(dataStructures[6])">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          🗂️
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Hash Tables</h3>
+         <p class="text-sm text-gray-100 drop-shadow mb-4">Key-value pairs</p>
+         <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-3 text-xs text-white">
+          <div class="font-mono">
+           "name" → "Alex"
+          </div>
+          <div class="font-mono">
+           "age" → 25
+          </div>
+          <div class="font-mono">
+           O(1) access
+          </div>
+         </div>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full shadow-lg"></div>
+        </div>
+       </div><!-- Heaps Card -->
+       <div class="structure-card structure-card-heaps rounded-2xl p-6 text-center card-hover elegant-shadow cursor-pointer glow-effect" onclick="openLearningModal(dataStructures[7])">
+        <div class="relative z-10">
+         <div class="text-4xl mb-4 floating-icon">
+          ⛰️
+         </div>
+         <h3 class="font-bold text-white text-base mb-2 drop-shadow-lg">Heaps</h3>
+         <p class="text-sm text-gray-100 drop-shadow mb-4">Complete binary tree</p>
+         <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-3 text-xs text-white">
+          <div class="font-mono text-center">
+           Max: 50
+          </div>
+          <div class="font-mono text-center">
+           / \
+          </div>
+          <div class="font-mono">
+           30 40
+          </div>
+         </div>
+         <div class="mt-4 w-full h-1 bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-full shadow-lg"></div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Interactive Learning Section -->
+     <section>
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center"><span class="mr-3">🎯</span> Your Learning Progress</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="structures-grid"><!-- Structure cards will be populated by JavaScript -->
+      </div>
+     </section>
+    </div><!-- Learning Modal -->
+    <div id="learning-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+     <div class="bg-white rounded-2xl max-w-4xl w-full max-h-full overflow-y-auto">
+      <div class="p-8">
+       <div class="flex justify-between items-start mb-6">
+        <div>
+         <h3 id="modal-title" class="text-3xl font-bold text-gray-800 mb-2"></h3>
+         <p id="modal-subtitle" class="text-lg text-gray-600"></p>
+        </div><button id="close-modal" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">×</button>
+       </div>
+       <div id="modal-content" class="space-y-6"><!-- Content will be populated by JavaScript -->
+       </div>
+       <div class="flex justify-between items-center mt-8 pt-6 border-t">
+        <div class="flex items-center space-x-4">
+         <div class="w-full bg-gray-200 rounded-full h-2 w-48">
+          <div id="modal-progress" class="progress-bar bg-indigo-500 h-2 rounded-full" style="width: 0%"></div>
+         </div><span id="modal-progress-text" class="text-sm text-gray-600">0%</span>
+        </div><button id="complete-topic" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"> Mark Complete </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main><!-- Professional Footer -->
+   <footer class="footer-gradient text-white py-8 px-6 mt-16">
+    <div class="max-w-6xl mx-auto">
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+       <h3 class="text-xl font-bold mb-4">Data Structures Academy</h3>
+       <p class="text-gray-300 text-sm leading-relaxed">Master computer science fundamentals with our interactive learning platform. Build strong foundations in data structures and algorithms.</p>
+      </div>
+      <div>
+       <h4 class="text-lg font-semibold mb-4">Learning Resources</h4>
+       <ul class="space-y-2 text-sm text-gray-300">
+        <li>• Interactive Tutorials</li>
+        <li>• Code Examples</li>
+        <li>• Progress Tracking</li>
+        <li>• Achievement System</li>
+       </ul>
+      </div>
+      <div>
+       <h4 class="text-lg font-semibold mb-4">Support</h4>
+       <ul class="space-y-2 text-sm text-gray-300">
+        <li>• Learning Guide</li>
+        <li>• Best Practices</li>
+        <li>• Community Forum</li>
+        <li>• Technical Support</li>
+       </ul>
+      </div>
+     </div>
+     <div class="border-t border-gray-600 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+      <div class="text-sm text-gray-400">
+       © 2024 Data Structures Academy. All rights reserved.
+      </div>
+      <div class="text-sm text-gray-400 mt-2 md:mt-0">
+       Powered by <span class="text-white font-semibold">Jegatheeswaran Tech Ideas</span>
+      </div>
+     </div>
+    </div>
+   </footer>
+  </div><!-- Floating Theme Toggle --> <button id="theme-toggle" class="floating-action bg-indigo-600 hover:bg-indigo-700 text-white p-4 rounded-full transition-all duration-300 shadow-lg"> 🎨 </button>
+  <script>
+        // Configuration object for Element SDK
+        const defaultConfig = {
+            app_title: "Data Structures Academy",
+            welcome_message: "Master the fundamentals of computer science",
+            progress_label: "Your Learning Journey",
+            background_color: "#f9fafb",
+            surface_color: "#ffffff",
+            text_color: "#1f2937",
+            primary_action_color: "#4f46e5",
+            secondary_action_color: "#10b981"
+        };
+
+        // Achievements system
+        const achievements = [
+            { id: "first_step", name: "First Steps", description: "Complete your first topic", icon: "🎯", requirement: 1 },
+            { id: "getting_started", name: "Getting Started", description: "Complete 3 topics", icon: "🚀", requirement: 3 },
+            { id: "halfway_there", name: "Halfway There", description: "Complete 4 topics", icon: "⭐", requirement: 4 },
+            { id: "almost_done", name: "Almost Done", description: "Complete 6 topics", icon: "🔥", requirement: 6 },
+            { id: "master", name: "Data Structure Master", description: "Complete all topics", icon: "👑", requirement: 8 },
+            { id: "streak_3", name: "Consistent Learner", description: "3 day learning streak", icon: "📚", requirement: 3, type: "streak" },
+            { id: "streak_7", name: "Week Warrior", description: "7 day learning streak", icon: "⚡", requirement: 7, type: "streak" },
+            { id: "time_30", name: "Dedicated Student", description: "Study for 30 minutes", icon: "⏰", requirement: 30, type: "time" }
+        ];
+
+        // Programming language examples
+        const languageExamples = {
+            javascript: {
+                arrays: "const numbers = [1, 2, 3, 4, 5];",
+                "linked-lists": "class Node { constructor(data) { this.data = data; this.next = null; } }",
+                stacks: "const stack = []; stack.push(5); stack.pop();",
+                queues: "const queue = []; queue.push(1); queue.shift();",
+                trees: "class TreeNode { constructor(val) { this.val = val; this.left = this.right = null; } }",
+                graphs: "const graph = { A: ['B', 'C'], B: ['A', 'D'], C: ['A'], D: ['B'] };",
+                "hash-tables": "const map = new Map(); map.set('key', 'value');",
+                heaps: "// Min heap implementation with array"
+            },
+            python: {
+                arrays: "numbers = [1, 2, 3, 4, 5]",
+                "linked-lists": "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None",
+                stacks: "stack = []\nstack.append(5)\nstack.pop()",
+                queues: "from collections import deque\nqueue = deque()\nqueue.append(1)\nqueue.popleft()",
+                trees: "class TreeNode:\n    def __init__(self, val):\n        self.val = val\n        self.left = self.right = None",
+                graphs: "graph = {'A': ['B', 'C'], 'B': ['A', 'D'], 'C': ['A'], 'D': ['B']}",
+                "hash-tables": "hash_table = {}\nhash_table['key'] = 'value'",
+                heaps: "import heapq\nheap = []\nheapq.heappush(heap, 5)"
+            },
+            java: {
+                arrays: "int[] numbers = {1, 2, 3, 4, 5};",
+                "linked-lists": "class Node {\n    int data;\n    Node next;\n    Node(int data) { this.data = data; }\n}",
+                stacks: "Stack<Integer> stack = new Stack<>();\nstack.push(5);\nstack.pop();",
+                queues: "Queue<Integer> queue = new LinkedList<>();\nqueue.offer(1);\nqueue.poll();",
+                trees: "class TreeNode {\n    int val;\n    TreeNode left, right;\n    TreeNode(int val) { this.val = val; }\n}",
+                graphs: "Map<String, List<String>> graph = new HashMap<>();",
+                "hash-tables": "HashMap<String, String> map = new HashMap<>();\nmap.put(\"key\", \"value\");",
+                heaps: "PriorityQueue<Integer> heap = new PriorityQueue<>();"
+            },
+            cpp: {
+                arrays: "int numbers[] = {1, 2, 3, 4, 5};",
+                "linked-lists": "struct Node {\n    int data;\n    Node* next;\n    Node(int val) : data(val), next(nullptr) {}\n};",
+                stacks: "#include <stack>\nstd::stack<int> s;\ns.push(5);\ns.pop();",
+                queues: "#include <queue>\nstd::queue<int> q;\nq.push(1);\nq.pop();",
+                trees: "struct TreeNode {\n    int val;\n    TreeNode *left, *right;\n    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n};",
+                graphs: "#include <unordered_map>\n#include <vector>",
+                "hash-tables": "#include <unordered_map>\nstd::unordered_map<std::string, std::string> map;",
+                heaps: "#include <priority_queue>\nstd::priority_queue<int> heap;"
+            },
+            csharp: {
+                arrays: "int[] numbers = {1, 2, 3, 4, 5};",
+                "linked-lists": "public class Node {\n    public int Data;\n    public Node Next;\n    public Node(int data) { Data = data; }\n}",
+                stacks: "Stack<int> stack = new Stack<int>();\nstack.Push(5);\nstack.Pop();",
+                queues: "Queue<int> queue = new Queue<int>();\nqueue.Enqueue(1);\nqueue.Dequeue();",
+                trees: "public class TreeNode {\n    public int Val;\n    public TreeNode Left, Right;\n    public TreeNode(int val) { Val = val; }\n}",
+                graphs: "Dictionary<string, List<string>> graph = new Dictionary<string, List<string>>();",
+                "hash-tables": "Dictionary<string, string> dict = new Dictionary<string, string>();",
+                heaps: "// Use SortedSet or implement custom heap"
+            }
+        };
+
+        // Data structures reference content
+        const dataStructures = [
+            {
+                id: "arrays",
+                name: "Arrays",
+                description: "Linear collection of elements",
+                color: "#ef4444",
+                icon: "📊",
+                content: {
+                    overview: "Arrays are fundamental data structures that store elements in contiguous memory locations.",
+                    keyPoints: [
+                        "Fixed size in most languages",
+                        "O(1) access time by index",
+                        "Elements stored sequentially",
+                        "Great for mathematical operations"
+                    ]
+                }
+            },
+            {
+                id: "linked-lists",
+                name: "Linked Lists",
+                description: "Dynamic linear data structure",
+                color: "#f59e0b",
+                icon: "🔗",
+                content: {
+                    overview: "Linked lists consist of nodes where each node contains data and a reference to the next node.",
+                    keyPoints: [
+                        "Dynamic size allocation",
+                        "O(n) search time",
+                        "Efficient insertion/deletion",
+                        "No memory waste"
+                    ]
+                }
+            },
+            {
+                id: "stacks",
+                name: "Stacks",
+                description: "Last In, First Out (LIFO)",
+                color: "#8b5cf6",
+                icon: "📚",
+                content: {
+                    overview: "Stacks follow the LIFO principle where the last element added is the first one removed.",
+                    keyPoints: [
+                        "Push and Pop operations",
+                        "Used in function calls",
+                        "Undo operations",
+                        "Expression evaluation"
+                    ]
+                }
+            },
+            {
+                id: "queues",
+                name: "Queues",
+                description: "First In, First Out (FIFO)",
+                color: "#06b6d4",
+                icon: "🚶‍♂️",
+                content: {
+                    overview: "Queues follow the FIFO principle where the first element added is the first one removed.",
+                    keyPoints: [
+                        "Enqueue and Dequeue operations",
+                        "Used in scheduling",
+                        "Breadth-first search",
+                        "Print job management"
+                    ]
+                }
+            },
+            {
+                id: "trees",
+                name: "Trees",
+                description: "Hierarchical data structure",
+                color: "#10b981",
+                icon: "🌳",
+                content: {
+                    overview: "Trees are hierarchical structures with nodes connected by edges, having one root node.",
+                    keyPoints: [
+                        "Root, parent, child relationships",
+                        "Binary trees are most common",
+                        "Used in databases",
+                        "Efficient searching"
+                    ]
+                }
+            },
+            {
+                id: "graphs",
+                name: "Graphs",
+                description: "Network of connected nodes",
+                color: "#ec4899",
+                icon: "🕸️",
+                content: {
+                    overview: "Graphs consist of vertices (nodes) connected by edges, representing relationships.",
+                    keyPoints: [
+                        "Directed or undirected",
+                        "Weighted or unweighted",
+                        "Social networks",
+                        "Shortest path algorithms"
+                    ]
+                }
+            },
+            {
+                id: "hash-tables",
+                name: "Hash Tables",
+                description: "Key-value pair storage",
+                color: "#f97316",
+                icon: "🗂️",
+                content: {
+                    overview: "Hash tables use hash functions to map keys to array indices for fast data retrieval.",
+                    keyPoints: [
+                        "O(1) average access time",
+                        "Hash function mapping",
+                        "Collision handling",
+                        "Used in databases"
+                    ]
+                }
+            },
+            {
+                id: "heaps",
+                name: "Heaps",
+                description: "Complete binary tree structure",
+                color: "#6366f1",
+                icon: "⛰️",
+                content: {
+                    overview: "Heaps are complete binary trees where parent nodes have specific ordering with children.",
+                    keyPoints: [
+                        "Max heap or min heap",
+                        "Priority queue implementation",
+                        "Heap sort algorithm",
+                        "O(log n) insertion"
+                    ]
+                }
+            }
+        ];
+
+        // Global state
+        let allUserData = [];
+        let userProfile = null;
+        let currentStructure = null;
+        let selectedAvatar = "👤";
+        let selectedTheme = "default";
+        let studyStartTime = null;
+
+        // Sample data for demo
+        const sampleProgressData = [
+            { structure_id: "arrays", completed: true, progress: 100 },
+            { structure_id: "linked-lists", completed: true, progress: 100 },
+            { structure_id: "stacks", completed: true, progress: 100 },
+            { structure_id: "queues", completed: false, progress: 60 },
+            { structure_id: "trees", completed: false, progress: 20 },
+            { structure_id: "graphs", completed: false, progress: 0 },
+            { structure_id: "hash-tables", completed: false, progress: 0 },
+            { structure_id: "heaps", completed: false, progress: 0 }
+        ];
+
+        // Element SDK configuration
+        async function onConfigChange(config) {
+            const appTitle = document.getElementById('app-title');
+            const welcomeMessage = document.getElementById('welcome-message');
+            const progressLabel = document.getElementById('progress-label');
+            
+            if (appTitle) appTitle.textContent = config.app_title || defaultConfig.app_title;
+            if (welcomeMessage) welcomeMessage.textContent = config.welcome_message || defaultConfig.welcome_message;
+            if (progressLabel) progressLabel.textContent = config.progress_label || defaultConfig.progress_label;
+            
+            // Apply colors
+            document.body.style.backgroundColor = config.background_color || defaultConfig.background_color;
+            
+            const cards = document.querySelectorAll('.bg-white');
+            cards.forEach(card => {
+                card.style.backgroundColor = config.surface_color || defaultConfig.surface_color;
+            });
+            
+            const textElements = document.querySelectorAll('.text-gray-800, .text-gray-700');
+            textElements.forEach(el => {
+                el.style.color = config.text_color || defaultConfig.text_color;
+            });
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.background_color || defaultConfig.background_color,
+                        set: (value) => {
+                            config.background_color = value;
+                            window.elementSdk.setConfig({ background_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.surface_color || defaultConfig.surface_color,
+                        set: (value) => {
+                            config.surface_color = value;
+                            window.elementSdk.setConfig({ surface_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.text_color || defaultConfig.text_color,
+                        set: (value) => {
+                            config.text_color = value;
+                            window.elementSdk.setConfig({ text_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                        set: (value) => {
+                            config.primary_action_color = value;
+                            window.elementSdk.setConfig({ primary_action_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                        set: (value) => {
+                            config.secondary_action_color = value;
+                            window.elementSdk.setConfig({ secondary_action_color: value });
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["app_title", config.app_title || defaultConfig.app_title],
+                ["welcome_message", config.welcome_message || defaultConfig.welcome_message],
+                ["progress_label", config.progress_label || defaultConfig.progress_label]
+            ]);
+        }
+
+        // Initialize app
+        async function initializeApp() {
+            // Initialize Element SDK
+            if (window.elementSdk) {
+                await window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange,
+                    mapToCapabilities,
+                    mapToEditPanelValues
+                });
+            }
+
+            // Set up sample user profile for demo
+            userProfile = {
+                record_type: 'profile',
+                user_name: 'Alex',
+                avatar: '🚀',
+                difficulty_level: 'intermediate',
+                preferred_language: 'javascript',
+                theme: 'default',
+                daily_goal: 30,
+                learning_streak: 5,
+                total_study_time: 125,
+                achievements: JSON.stringify([]),
+                last_study_date: new Date().toISOString()
+            };
+
+            // Set up sample progress data
+            allUserData = [
+                ...sampleProgressData.map(p => ({ ...p, record_type: 'progress' })),
+                userProfile
+            ];
+
+            setupEventListeners();
+            applyUserProfile();
+            renderStructureCards(sampleProgressData);
+            updateProgressDisplay(sampleProgressData);
+            updateAchievements(sampleProgressData);
+            renderAchievements();
+            applyTheme('default');
+        }
+
+        function applyUserProfile() {
+            if (!userProfile) return;
+            
+            // Update UI with user info
+            document.getElementById('user-greeting').textContent = `Welcome back, ${userProfile.user_name}!`;
+            document.getElementById('user-avatar').textContent = userProfile.avatar;
+            document.getElementById('streak-display').textContent = `🔥 ${userProfile.learning_streak || 0} day streak`;
+            
+            // Apply theme
+            applyTheme(userProfile.theme || 'default');
+            
+            // Update daily progress
+            const dailyGoal = userProfile.daily_goal || 30;
+            const todayStudyTime = calculateTodayStudyTime();
+            document.getElementById('daily-progress').textContent = `${todayStudyTime}/${dailyGoal} min`;
+            
+            // Update streak counter
+            document.getElementById('streak-counter').textContent = `${userProfile.learning_streak || 0} days`;
+            
+            // Update total study time
+            document.getElementById('total-study-time-display').textContent = userProfile.total_study_time || 0;
+            document.getElementById('current-streak-display').textContent = userProfile.learning_streak || 0;
+        }
+
+        function applyTheme(theme) {
+            const body = document.body;
+            const header = document.getElementById('main-header');
+            
+            // Remove existing theme classes
+            body.className = body.className.replace(/theme-\w+/g, '');
+            header.className = header.className.replace(/gradient-\w+/g, '');
+            
+            // Apply new theme
+            body.classList.add(`theme-${theme}`);
+            
+            // Keep the background image but change the overlay gradient
+            const baseStyle = "background-image: url('https://t4.ftcdn.net/jpg/08/96/56/53/360_F_896565357_fmPjmJPX8vKdZ7FGodwE3F8pxkFEfuCX.jpg'); background-size: cover; background-position: center; background-blend-mode: overlay;";
+            
+            switch(theme) {
+                case 'corporate':
+                    header.style.cssText = baseStyle + ' background-color: #1e3a8a;';
+                    break;
+                case 'modern':
+                    header.style.cssText = baseStyle + ' background-color: #0f172a;';
+                    break;
+                case 'nature':
+                    header.style.cssText = baseStyle + ' background-color: #065f46;';
+                    break;
+                default:
+                    header.style.cssText = baseStyle + ' background-color: #667eea;';
+            }
+            
+            // Update theme toggle button
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeEmojis = {
+                default: '🎨',
+                corporate: '💼',
+                modern: '🌙',
+                nature: '🌿'
+            };
+            themeToggle.textContent = themeEmojis[theme] || '🎨';
+        }
+
+        function cycleTheme() {
+            const themes = ['default', 'corporate', 'modern', 'nature'];
+            const currentTheme = selectedTheme || 'default';
+            const currentIndex = themes.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themes.length;
+            const nextTheme = themes[nextIndex];
+            
+            selectedTheme = nextTheme;
+            applyTheme(nextTheme);
+            
+            // Update user profile if exists
+            if (userProfile) {
+                userProfile.theme = nextTheme;
+                window.dataSdk?.update(userProfile);
+            }
+            
+            // Update theme selection in settings
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('selected');
+                if (option.dataset.theme === nextTheme) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            showToast(`Theme changed to ${nextTheme.charAt(0).toUpperCase() + nextTheme.slice(1)}`, 'success');
+        }
+
+        function calculateTodayStudyTime() {
+            const today = new Date().toDateString();
+            const todayRecords = allUserData.filter(record => 
+                record.last_accessed && new Date(record.last_accessed).toDateString() === today
+            );
+            return Math.min(todayRecords.length * 5, userProfile?.daily_goal || 30); // Estimate 5 min per topic
+        }
+
+        function updateProgressDisplay(progressData) {
+            const completedStructures = progressData.filter(p => p.completed).length;
+            const totalStructures = dataStructures.length;
+            const percentage = Math.round((completedStructures / totalStructures) * 100);
+
+            document.getElementById('overall-percentage').textContent = `${percentage}%`;
+            document.getElementById('overall-progress').style.width = `${percentage}%`;
+            document.getElementById('completed-count').textContent = completedStructures;
+            document.getElementById('total-count').textContent = totalStructures;
+        }
+
+        function updateAchievements(progressData) {
+            const completedCount = progressData.filter(p => p.completed).length;
+            const currentStreak = userProfile?.learning_streak || 0;
+            const totalStudyTime = userProfile?.total_study_time || 0;
+            
+            let earnedAchievements = 0;
+            
+            achievements.forEach(achievement => {
+                let earned = false;
+                
+                if (achievement.type === 'streak') {
+                    earned = currentStreak >= achievement.requirement;
+                } else if (achievement.type === 'time') {
+                    earned = totalStudyTime >= achievement.requirement;
+                } else {
+                    earned = completedCount >= achievement.requirement;
+                }
+                
+                if (earned) earnedAchievements++;
+            });
+            
+            document.getElementById('achievement-count').textContent = earnedAchievements;
+            renderAchievements();
+        }
+
+        function renderAchievements() {
+            const grid = document.getElementById('achievements-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            const completedCount = allUserData.filter(p => p.completed && p.record_type === 'progress').length;
+            const currentStreak = userProfile?.learning_streak || 0;
+            const totalStudyTime = userProfile?.total_study_time || 0;
+            
+            achievements.forEach(achievement => {
+                let earned = false;
+                
+                if (achievement.type === 'streak') {
+                    earned = currentStreak >= achievement.requirement;
+                } else if (achievement.type === 'time') {
+                    earned = totalStudyTime >= achievement.requirement;
+                } else {
+                    earned = completedCount >= achievement.requirement;
+                }
+                
+                const achievementEl = document.createElement('div');
+                achievementEl.className = `p-4 rounded-lg border-2 transition-all ${
+                    earned ? 'border-yellow-400 bg-yellow-50 achievement-earned' : 'border-gray-200 bg-gray-50 achievement-locked'
+                }`;
+                
+                achievementEl.innerHTML = `
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">${achievement.icon}</div>
+                        <h4 class="font-semibold text-sm ${earned ? 'text-yellow-800' : 'text-gray-500'}">${achievement.name}</h4>
+                        <p class="text-xs ${earned ? 'text-yellow-600' : 'text-gray-400'} mt-1">${achievement.description}</p>
+                    </div>
+                `;
+                
+                grid.appendChild(achievementEl);
+            });
+        }
+
+        function renderStructureCards(progressData) {
+            const grid = document.getElementById('structures-grid');
+            grid.innerHTML = '';
+
+            dataStructures.forEach(structure => {
+                const progress = progressData.find(p => p.structure_id === structure.id);
+                const isCompleted = progress?.completed || false;
+                const progressPercent = progress?.progress || 0;
+
+                const card = document.createElement('div');
+                card.className = `structure-card structure-card-${structure.id} rounded-2xl p-8 card-hover cursor-pointer relative transition-all duration-500 ${isCompleted ? 'ring-2 ring-green-400 shadow-green-100' : 'hover:shadow-2xl'} glow-effect`;
+                card.onclick = () => openLearningModal(structure);
+
+                card.innerHTML = `
+                    <div class="text-center relative z-10">
+                        <div class="structure-icon mx-auto mb-6 text-6xl filter drop-shadow-lg floating-icon">${structure.icon}</div>
+                        <h3 class="text-xl font-bold text-white mb-3 drop-shadow-lg">${structure.name}</h3>
+                        <p class="text-gray-100 mb-6 text-sm leading-relaxed drop-shadow">${structure.description}</p>
+                        
+                        <div class="w-full bg-gray-200 rounded-full h-3 mb-6 overflow-hidden shadow-inner">
+                            <div class="progress-bar h-3 rounded-full transition-all duration-1000 shadow-lg relative" style="width: ${progressPercent}%; background: linear-gradient(90deg, ${structure.color}, ${structure.color}dd)">
+                                <div class="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-800 font-semibold bg-white bg-opacity-90 px-3 py-1 rounded-full shadow-lg backdrop-blur-sm">${progressPercent}% complete</span>
+                            ${isCompleted ? 
+                                '<span class="text-green-700 font-bold flex items-center bg-green-100 bg-opacity-90 px-3 py-1 rounded-full shadow-lg backdrop-blur-sm"><span class="mr-1">✓</span> Completed</span>' : 
+                                '<span class="text-indigo-700 font-bold hover:text-indigo-800 transition-colors bg-indigo-100 bg-opacity-90 px-3 py-1 rounded-full hover:bg-indigo-200 shadow-lg backdrop-blur-sm">Start Learning →</span>'
+                            }
+                        </div>
+                    </div>
+                    
+                    ${isCompleted ? '<div class="absolute top-6 right-6 text-green-500 text-3xl animate-pulse floating-icon">🏆</div>' : ''}
+                    ${progressPercent > 0 && !isCompleted ? '<div class="absolute top-6 right-6 text-blue-500 text-2xl floating-icon">📚</div>' : ''}
+                    
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-transparent via-transparent to-gray-50 opacity-50"></div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function openLearningModal(structure) {
+            currentStructure = structure;
+            studyStartTime = Date.now();
+            
+            const progressData = allUserData.filter(record => record.record_type === 'progress');
+            const progress = progressData.find(p => p.structure_id === structure.id);
+            const progressPercent = progress?.progress || 0;
+            const isCompleted = progress?.completed || false;
+
+            document.getElementById('modal-title').textContent = structure.name;
+            document.getElementById('modal-subtitle').textContent = structure.description;
+            document.getElementById('modal-progress').style.width = `${progressPercent}%`;
+            document.getElementById('modal-progress-text').textContent = `${progressPercent}%`;
+
+            // Get example in user's preferred language
+            const preferredLang = userProfile?.preferred_language || 'javascript';
+            const example = languageExamples[preferredLang]?.[structure.id] || languageExamples.javascript[structure.id];
+
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Overview</h4>
+                    <p class="text-gray-700">${structure.content.overview}</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Key Points</h4>
+                    <ul class="space-y-2">
+                        ${structure.content.keyPoints.map(point => 
+                            `<li class="flex items-start space-x-2">
+                                <span class="text-indigo-500 font-bold">•</span>
+                                <span class="text-gray-700">${point}</span>
+                            </li>`
+                        ).join('')}
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-900 rounded-lg p-4">
+                    <h4 class="text-lg font-semibold text-white mb-2">Example (${preferredLang.toUpperCase()})</h4>
+                    <pre class="text-green-400 font-mono text-sm overflow-x-auto">${example}</pre>
+                </div>
+            `;
+
+            const completeButton = document.getElementById('complete-topic');
+            completeButton.textContent = isCompleted ? 'Completed ✓' : 'Mark Complete';
+            completeButton.className = isCompleted 
+                ? 'bg-green-500 text-white px-6 py-3 rounded-lg font-semibold cursor-default'
+                : 'bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors';
+            completeButton.disabled = isCompleted;
+
+            document.getElementById('learning-modal').classList.remove('hidden');
+            document.getElementById('learning-modal').classList.add('flex');
+        }
+
+        async function markTopicComplete() {
+            if (!currentStructure || allUserData.length >= 999) {
+                if (allUserData.length >= 999) {
+                    showToast("Maximum limit of 999 records reached. Please contact support.", "error");
+                }
+                return;
+            }
+
+            // Calculate study time
+            const studyTime = studyStartTime ? Math.round((Date.now() - studyStartTime) / 60000) : 5; // Default 5 min
+            
+            const progressData = allUserData.filter(record => record.record_type === 'progress');
+            const existingProgress = progressData.find(p => p.structure_id === currentStructure.id);
+            
+            if (existingProgress) {
+                existingProgress.completed = true;
+                existingProgress.progress = 100;
+                existingProgress.last_accessed = new Date().toISOString();
+                
+                const result = await window.dataSdk.update(existingProgress);
+                if (result.isOk) {
+                    await updateUserStats(studyTime);
+                    showToast("Topic completed! Great job! 🎉", "success");
+                } else {
+                    showToast("Failed to update progress. Please try again.", "error");
+                }
+            } else {
+                const newProgress = {
+                    structure_id: currentStructure.id,
+                    completed: true,
+                    progress: 100,
+                    last_accessed: new Date().toISOString(),
+                    record_type: 'progress'
+                };
+                
+                const result = await window.dataSdk.create(newProgress);
+                if (result.isOk) {
+                    await updateUserStats(studyTime);
+                    showToast("Topic completed! Great job! 🎉", "success");
+                } else {
+                    showToast("Failed to save progress. Please try again.", "error");
+                }
+            }
+        }
+
+        async function updateUserStats(studyTime) {
+            if (!userProfile) return;
+            
+            const today = new Date().toDateString();
+            const lastStudyDate = userProfile.last_study_date ? new Date(userProfile.last_study_date).toDateString() : null;
+            
+            // Update streak
+            if (lastStudyDate === today) {
+                // Already studied today, don't change streak
+            } else if (lastStudyDate === new Date(Date.now() - 86400000).toDateString()) {
+                // Studied yesterday, increment streak
+                userProfile.learning_streak = (userProfile.learning_streak || 0) + 1;
+            } else {
+                // Streak broken or first time, reset to 1
+                userProfile.learning_streak = 1;
+            }
+            
+            userProfile.last_study_date = new Date().toISOString();
+            userProfile.total_study_time = (userProfile.total_study_time || 0) + studyTime;
+            
+            await window.dataSdk.update(userProfile);
+        }
+
+        async function completeSetup() {
+            const name = document.getElementById('setup-name').value.trim();
+            if (!name) {
+                showToast("Please enter your name", "error");
+                return;
+            }
+            
+            if (allUserData.length >= 999) {
+                showToast("Maximum limit reached. Please contact support.", "error");
+                return;
+            }
+
+            const profileData = {
+                record_type: 'profile',
+                user_name: name,
+                avatar: selectedAvatar,
+                difficulty_level: document.getElementById('setup-difficulty').value,
+                preferred_language: document.getElementById('setup-language').value,
+                theme: selectedTheme,
+                daily_goal: parseInt(document.getElementById('setup-daily-goal').value),
+                learning_streak: 0,
+                total_study_time: 0,
+                achievements: JSON.stringify([]),
+                last_study_date: new Date().toISOString()
+            };
+
+            const result = await window.dataSdk.create(profileData);
+            if (result.isOk) {
+                showToast("Welcome to Data Structures Academy! 🎉", "success");
+            } else {
+                showToast("Failed to save profile. Please try again.", "error");
+            }
+        }
+
+        async function saveSettings() {
+            if (!userProfile) return;
+            
+            userProfile.user_name = document.getElementById('settings-name').value;
+            userProfile.difficulty_level = document.getElementById('settings-difficulty').value;
+            userProfile.daily_goal = parseInt(document.getElementById('settings-daily-goal').value);
+            
+            const result = await window.dataSdk.update(userProfile);
+            if (result.isOk) {
+                showToast("Settings saved successfully!", "success");
+                document.getElementById('settings-modal').classList.add('hidden');
+            } else {
+                showToast("Failed to save settings. Please try again.", "error");
+            }
+        }
+
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg text-white font-semibold z-50 ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            }`;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function setupEventListeners() {
+            // Setup modal events
+            document.getElementById('complete-setup')?.onclick = completeSetup;
+            
+            // Avatar selection
+            document.querySelectorAll('.avatar-option').forEach(btn => {
+                btn.onclick = () => {
+                    document.querySelectorAll('.avatar-option').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    selectedAvatar = btn.dataset.avatar;
+                };
+            });
+            
+            // Theme selection in settings
+            document.querySelectorAll('.theme-option').forEach(btn => {
+                btn.onclick = () => {
+                    document.querySelectorAll('.theme-option').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    selectedTheme = btn.dataset.theme;
+                    applyTheme(selectedTheme);
+                    
+                    // Update user profile
+                    if (userProfile) {
+                        userProfile.theme = selectedTheme;
+                        window.dataSdk?.update(userProfile);
+                    }
+                };
+            });
+            
+            // Floating theme toggle
+            document.getElementById('theme-toggle').onclick = cycleTheme;
+            
+            // Settings modal events
+            document.getElementById('settings-btn').onclick = () => {
+                if (userProfile) {
+                    document.getElementById('settings-name').value = userProfile.user_name;
+                    document.getElementById('settings-difficulty').value = userProfile.difficulty_level;
+                    document.getElementById('settings-daily-goal').value = userProfile.daily_goal;
+                    renderAchievements();
+                }
+                document.getElementById('settings-modal').classList.remove('hidden');
+                document.getElementById('settings-modal').classList.add('flex');
+            };
+            
+            document.getElementById('close-settings').onclick = () => {
+                document.getElementById('settings-modal').classList.add('hidden');
+            };
+            
+            document.getElementById('save-settings').onclick = saveSettings;
+            
+            // Learning modal events
+            document.getElementById('close-modal').onclick = () => {
+                document.getElementById('learning-modal').classList.add('hidden');
+                document.getElementById('learning-modal').classList.remove('flex');
+            };
+
+            document.getElementById('complete-topic').onclick = markTopicComplete;
+
+            // Close modals when clicking outside
+            document.getElementById('learning-modal').onclick = (e) => {
+                if (e.target.id === 'learning-modal') {
+                    document.getElementById('learning-modal').classList.add('hidden');
+                    document.getElementById('learning-modal').classList.remove('flex');
+                }
+            };
+            
+            document.getElementById('settings-modal').onclick = (e) => {
+                if (e.target.id === 'settings-modal') {
+                    document.getElementById('settings-modal').classList.add('hidden');
+                }
+            };
+        }
+
+        // Initialize the app
+        initializeApp();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ce67dd965e77edf',t:'MTc3MTE3NjE5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
